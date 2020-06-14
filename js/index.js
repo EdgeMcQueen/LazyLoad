@@ -4,7 +4,7 @@ let images = document.querySelectorAll('img');
 // задаём параметры для IntersectionObserver
 let options = {
     root: null,
-    rootMargin: "0px",
+    rootMargin: '0px',
     threshold: 0.1
 }
 
@@ -14,8 +14,17 @@ function handleImg(myImg, observer) {
     // Берем img которые появляются при изменении положения на странице
     myImg.forEach( myImgSingle => {
         // добавляем свойство IntersectionRatio, которое показывает насколько img пересекла viewport
-        console.log(myImgSingle.IntersectionRatio);
+        console.log(myImgSingle.intersectionRatio);
+        // если IntersectionRatio, то запускаем функцию которая загружает картинку
+        if (myImgSingle.intersectionRatio > 0) {
+            loadImage(myImgSingle.target);
+        }
     })
+}
+
+// функция которая загружает изображение
+function loadImage(image) {
+    image.src = image.getAttribute('data');
 }
 
 // создаём объект позволяющий отследить элемент в зоне видимости(viewport) браузера
